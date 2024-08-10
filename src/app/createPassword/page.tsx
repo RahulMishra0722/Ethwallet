@@ -89,12 +89,20 @@ export default function SetPassword() {
             const phrase = localStorage.getItem('secret');
 
             try {
-                const response = await axios.post('/api/create-user', {
-                    publicKey: data?.Publickey,
-                    address: data?.Adress,
-                    password: values.password,
-                    resetPassPhrase: phrase
-                });
+                const response = await axios.post('/api/create-user',
+                    {
+                        publicKey: data?.Publickey,
+                        address: data?.Adress,
+                        password: values.password,
+                        resetPassPhrase: phrase
+                    },
+                    {
+                        headers: {
+                            'Cache-Control': 'no-store'
+                        }
+                    }
+                );
+
                 if (response.status < 250) {
                     setIsSignUpSuccessfull(true)
                 }

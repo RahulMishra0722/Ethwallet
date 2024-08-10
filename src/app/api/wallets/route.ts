@@ -1,18 +1,26 @@
-import { ethers } from "ethers";
-import { NextRequest, NextResponse } from "next/server";
-
+import { ethers } from 'ethers';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
     try {
         const wallet = ethers.Wallet.createRandom();
-        return NextResponse.json({
+
+        // Create a response object
+        const response = NextResponse.json({
             Publickey: wallet.publicKey,
-            Adress: wallet.address,
+            Address: wallet.address,
             Mnemonic: wallet.mnemonic?.phrase
-        }, { headers: { cache: 'no-cache' } });
+        });
+
+        // Set Cache-Control header
+        response.headers.set('Cache-Control', 'no-store');
+
+        return response;
     } catch (error) {
+        console.error('Error generating wallet:', error);
         return NextResponse.json({
             message: 'Internal server error'
         });
     }
 }
+export const revalidate = 0;
