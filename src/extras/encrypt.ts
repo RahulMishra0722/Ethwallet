@@ -35,7 +35,11 @@ export const decodeData = async (encodedString: string): Promise<{ Publickey: st
         const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(NEXT_PUBLIC_ENCRYPTION_KEY, 'hex'), iv);
         const decrypted = Buffer.concat([decipher.update(encrypted), decipher.final()]);
         return JSON.parse(decrypted.toString('utf8'));
-    } catch (error) {
-        throw new Error(`Decryption failed: ${error.message}`);
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            throw new Error(`Decryption failed: ${error.message}`);
+        } else {
+            throw new Error('Decryption failed: An unknown error occurred');
+        }
     }
 };

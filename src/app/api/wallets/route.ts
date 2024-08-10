@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextResponse) {
+export async function GET(req: NextRequest) {
     try {
         const wallet = ethers.Wallet.createRandom();
 
