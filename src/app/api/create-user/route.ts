@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
 
-        // Check if a user with the same publicKey already exists
+
         const existingUser = await prisma.user.findUnique({
             where: { publicKey: publicKey },
         });
@@ -19,6 +19,15 @@ export async function POST(req: NextRequest) {
         if (existingUser) {
             console.error("Error: User with this publicKey already exists");
             return NextResponse.json({ error: "User with this publicKey already exists" }, { status: 409 });
+        }
+
+        const existingWallet = await prisma.wallet.findUnique({
+            where: { publicKey: publicKey },
+        });
+
+        if (existingWallet) {
+            console.error("Error: Wallet with this publicKey already exists");
+            return NextResponse.json({ error: "Wallet with this publicKey already exists" }, { status: 409 });
         }
 
         const salt = await bcrypt.genSalt(10);
