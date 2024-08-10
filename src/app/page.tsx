@@ -47,6 +47,7 @@ export default function Home() {
       const secret = await hashString(d);
       localStorage.setItem('secret', secret);
       const response = await axios.get('/api/wallets');
+      console.log({ key: response.data.Publickey })
       setSecretPhrase(response.data.Mnemonic);
       setData(response.data);
     } catch (error) {
