@@ -9,6 +9,7 @@ import {
     Card,
     CardContent,
     CardDescription,
+    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
@@ -112,59 +113,64 @@ export default function SetPassword() {
 
     return (
         <div>
-            <h1>...</h1>
-            <Suspense fallback={<>Loading...</>}>
-                <div className='justify-center flex items-center h-screen w-screen'>
-                    <Card className="w-[350px]">
-                        <CardHeader>
-                            <CardTitle>Create Project</CardTitle>
-                            <CardDescription>Deploy your new project in one-click.</CardDescription>
-                        </CardHeader>
-                        <CardContent>
-                            <Form {...form}>
-                                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                                    <FormField
-                                        control={form.control}
-                                        name="password"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Password</FormLabel>
-                                                <FormControl>
-                                                    <Input type='password' placeholder="Enter your password" {...field} />
-                                                </FormControl>
-                                                <FormDescription>
-                                                    Your password should be kept secret.
-                                                </FormDescription>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <FormField
-                                        control={form.control}
-                                        name="reTypedPassword"
-                                        render={({ field }) => (
-                                            <FormItem>
-                                                <FormLabel>Re-type Password</FormLabel>
-                                                <FormControl>
-                                                    <Input type='password' placeholder="Re-enter your password" {...field} />
-                                                </FormControl>
-                                                <FormDescription>
-                                                    Re-type your password to confirm.
-                                                </FormDescription>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <Button type="submit">Submit</Button>
-                                </form>
-                            </Form>
-                        </CardContent>
-                        {isSignUpSuccessfull && `Your pub key: ${data.Publickey}`}
-                        {isSignUpSuccessfull && <Button onClick={() => handleLogin(data.Publickey)}>Login</Button>}
-                    </Card>
+            {!isSignUpSuccessfull &&
+                <Suspense fallback={<>Loading...</>}>
+                    <div className='justify-center flex items-center h-screen w-screen'>
+                        <Card className="w-[350px]">
+                            <CardHeader>
+                                <CardTitle>Create Password</CardTitle>
+                                <CardDescription>Deploy your new project in one-click.</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <Form {...form}>
+                                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                                        <FormField
+                                            control={form.control}
+                                            name="password"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Password</FormLabel>
+                                                    <FormControl>
+                                                        <Input type='password' placeholder="Enter your password" {...field} />
+                                                    </FormControl>
+                                                    <FormDescription>
+                                                        Your password should be kept secret.
+                                                    </FormDescription>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="reTypedPassword"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Re-type Password</FormLabel>
+                                                    <FormControl>
+                                                        <Input type='password' placeholder="Re-enter your password" {...field} />
+                                                    </FormControl>
+                                                    <FormDescription>
+                                                        Re-type your password to confirm.
+                                                    </FormDescription>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <Button type="submit">Submit</Button>
+                                    </form>
+                                </Form>
+                            </CardContent>
+                        </Card>
+                    </div>
 
+                </Suspense>
+            }
+            {isSignUpSuccessfull &&
+                <div className='flex items-center justify-center h-screen w-screen'>
+                    <Button onClick={() => handleLogin(data.Publickey)}>Login</Button>
                 </div>
-            </Suspense>
+
+            }
         </div>
     );
 }

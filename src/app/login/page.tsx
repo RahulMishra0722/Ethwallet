@@ -50,10 +50,13 @@ export default function Login() {
 
     async function onSubmit(values: z.infer<typeof schema>) {
         try {
-            await axios.post('/api/login', {
+            const response = await axios.post('/api/login', {
                 publicKey: values.publicKey,
                 password: values.password,
             });
+            if (response.status < 250) {
+                alert('Login sucessful')
+            }
         } catch (error) {
             console.error('Error creating user:', error);
         }
@@ -61,7 +64,6 @@ export default function Login() {
 
     return (
         <div>
-            <h1>Login</h1>
             <div className='justify-center flex items-center h-screen w-screen'>
                 <Card className="w-[350px]">
                     <CardHeader>

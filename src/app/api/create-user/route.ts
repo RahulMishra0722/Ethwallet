@@ -6,8 +6,9 @@ export async function POST(req: NextRequest) {
     try {
         const { publicKey, address, password, resetPassPhrase } = await req.json();
 
-        // Validate input if necessary
+
         if (!publicKey || !address || !password || !resetPassPhrase) {
+            console.error("Error: Missing required fields", { publicKey, address, password, resetPassPhrase });
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
 
@@ -21,18 +22,22 @@ export async function POST(req: NextRequest) {
                 resetPassPhrase
             }
         });
+
         const wallet = await prisma.wallet.create({
             data: {
                 publicKey: publicKey,
                 userId: user.id,
                 address
             }
-        })
+        });
 
         return NextResponse.json({ user: user, wallet: wallet }, { status: 201 });
 
-    } catch (error) {
-        console.error("Error creating user:", error);
+    } catch (error: unknown) {
+        console.error("Error creating user:", {
+            message: error.message,
+            stack: error.stack,
+        });
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }
