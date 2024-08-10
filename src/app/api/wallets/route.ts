@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
             Publickey: wallet.publicKey,
             Adress: wallet.address,
             Mnemonic: wallet.mnemonic?.phrase
-        }, { headers: { 'Cache-Control': 'no-store' } });
+        }, { headers: { cache: 'no-cache' } });
     } catch (error) {
         return NextResponse.json({
             message: 'Internal server error'
