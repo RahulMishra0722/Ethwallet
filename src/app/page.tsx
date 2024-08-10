@@ -54,7 +54,7 @@ export default function Home() {
     }
   };
 
-  // Function to format the secret phrase
+
   const formatSecretPhrase = (phrase: string) => {
     const words = phrase.split(' ');
     const groups = [];
@@ -65,7 +65,7 @@ export default function Home() {
   };
 
   const handleAccountCreation = async () => {
-    console.log("Button clicked"); // Add this line
+
     if (!data) {
       console.error("No data available");
       return;
@@ -76,7 +76,7 @@ export default function Home() {
         Adress: data.Adress,
       };
       const encodedData = encodeData(en);
-      console.log("Encoded data:", encodedData); // Add this line
+
       router.push(`/createPassword/?key=${encodedData}`);
     } catch (error) {
       console.error("Error during account creation:", error);
