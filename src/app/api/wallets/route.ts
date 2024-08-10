@@ -1,5 +1,6 @@
-import { ethers } from 'ethers';
-import { NextRequest, NextResponse } from 'next/server';
+import { ethers } from "ethers";
+import { NextRequest, NextResponse } from "next/server";
+
 
 export async function GET(req: NextRequest) {
     try {
@@ -8,7 +9,7 @@ export async function GET(req: NextRequest) {
         // Create a response object
         const response = NextResponse.json({
             Publickey: wallet.publicKey,
-            Address: wallet.address,
+            Adress: wallet.address,
             Mnemonic: wallet.mnemonic?.phrase
         });
 
@@ -23,4 +24,4 @@ export async function GET(req: NextRequest) {
         });
     }
 }
-export const revalidate = 0;
+
