@@ -86,7 +86,7 @@ export default function SetPassword() {
             alert('Passwords do not match');
         } else {
             const phrase = localStorage.getItem('secret');
-            console.log({ data: data })
+
             try {
                 const response = await axios.post('/api/create-user', {
                     publicKey: data?.Publickey,
