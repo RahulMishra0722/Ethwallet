@@ -6,10 +6,19 @@ export async function POST(req: NextRequest) {
     try {
         const { publicKey, address, password, resetPassPhrase } = await req.json();
 
-
         if (!publicKey || !address || !password || !resetPassPhrase) {
             console.error("Error: Missing required fields", { publicKey, address, password, resetPassPhrase });
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+        }
+
+        // Check if a user with the same publicKey already exists
+        const existingUser = await prisma.user.findUnique({
+            where: { publicKey: publicKey },
+        });
+
+        if (existingUser) {
+            console.error("Error: User with this publicKey already exists");
+            return NextResponse.json({ error: "User with this publicKey already exists" }, { status: 409 });
         }
 
         const salt = await bcrypt.genSalt(10);
