@@ -44,7 +44,7 @@ export default function Login() {
         resolver: zodResolver(schema),
         defaultValues: {
             password: "",
-            publicKey: publicKey || "", // Use the query parameter if available
+            publicKey: publicKey || "",
         },
     });
 
