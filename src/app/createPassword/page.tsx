@@ -45,11 +45,12 @@ const schema = z.object({
 
 export default function SetPassword() {
     const search = useSearchParams();
+    const key = search.get('key');
     const [data, setData] = useState<{ Publickey: string; Adress: string } | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [isSignUpSuccessfull, setIsSignUpSuccessfull] = useState<boolean>(false)
-    const key = search.get('key');
+
     const router = useRouter()
 
     const form = useForm<z.infer<typeof schema>>({

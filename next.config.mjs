@@ -2,7 +2,10 @@
 const nextConfig = {
 
     images: {
-        domains: ['i.pinimg.com'], // Add the domain here
+        domains: ['i.pinimg.com'],
+    },
+    experimental: {
+        missingSuspenseWithCSRBailout: false,
     },
 };
 
