@@ -34,10 +34,15 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ user: user, wallet: wallet }, { status: 201 });
 
     } catch (error: unknown) {
-        console.error("Error creating user:", {
-            message: error.message,
-            stack: error.stack,
-        });
+        if (error instanceof Error) {
+            console.error("Error creating user:", {
+                message: error.message,
+                stack: error.stack,
+            });
+        } else {
+            console.error("Error creating user:", error);
+        }
+
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
 }
